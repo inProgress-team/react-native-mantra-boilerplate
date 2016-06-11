@@ -8,8 +8,11 @@
     "lintfix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "mantra-core": "^1.6.1",
     "react": "15.0.2",
-    "react-native": "^0.26.3"
+    "react-native": "^0.26.3",
+    "react-native-meteor": "^1.0.0-rc8",
+    "react-native-router-flux": "^3.26.24"
   },
   "devDependencies": {
     "rnpm-plugin-upgrade": "^0.26.0"
