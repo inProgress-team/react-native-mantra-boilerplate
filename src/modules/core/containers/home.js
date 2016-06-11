@@ -1,5 +1,9 @@
-import {useDeps, composeAll, composeWithTracker} from 'mantra-core';
+import React from 'react';
 import { View } from 'react-native';
+const errorLoading = <View />;
+
+import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
+
 
 import Home from '../components/home';
 
@@ -13,6 +17,6 @@ export const depsMapper = (context) => ({
 });
 
 export default composeAll(
-  composeWithTracker(composer, ()=><View />, ()=><View />),
+  composeWithTracker(composer, ()=>errorLoading, ()=>errorLoading),
   useDeps(depsMapper)
 )(Home);
