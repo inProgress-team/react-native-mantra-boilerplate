@@ -47,7 +47,7 @@ templates:
       - type: replace
         path: index.js
         what: /* IMPORTS */
-        replace: import $name from "./$name";\n/* IMPORTS */
+        replace: import $name from './$name';\n/* IMPORTS */
       - type: replace
         path: index.js
         what: /* CALLS */
@@ -83,7 +83,7 @@ templates:
   # Module component template
   - name: components
     text: |
-      import React, { Component } from "react";
+      import React, { Component } from 'react';
       import { View } from 'react-native';
 
       export default class $1 extends Component {
@@ -116,7 +116,10 @@ templates:
       import { useDeps, composeAll } from 'mantra-core';
       import { composeWithTracker } from 'react-native-meteor';
 
-      import $1 from '../components/_____name_____.jsx';
+      import L from '../../core/components/loading';
+      import E from '../../core/components/error';
+
+      import Login from '../components/login';
 
       export const composer = ({context}, onData) => {
         const { Meteor } = context();
@@ -129,17 +132,18 @@ templates:
       });
 
       export default composeAll(
-        composeWithTracker(composer),
+        composeWithTracker(composer, L, E),
         useDeps(depsMapper)
-      )($1);
+      )(Login);
+
 
     placeholders:
       - Component Name
     actions:
       - type: replace
         path: $name.js
-        what: _____name_____.jsx';
-        replace: $name.jsx';
+        what: _____name_____';
+        replace: $name';
       - type: create
         path: tests/$name.js
         text: |
@@ -161,7 +165,7 @@ templates:
     show: true
     create: true
     text: |
-      import actions from "./actions";
+      import actions from './actions';
 
       export default {
         actions
@@ -185,10 +189,10 @@ templates:
     create: true
     show: true
     text: |
-      import "./configs/config";
+      import './configs/config';
       import {createApp} from 'mantra-core';
-      import coreModule from "./modules/core/index";
-      import initContext from "./configs/context";
+      import coreModule from './modules/core/index';
+      import initContext from './configs/context';
       // init context
       const context = initContext();
       // create app
@@ -202,7 +206,7 @@ templates:
         what: import {createApp} from 'mantra-core';
         replace: |
           import {createApp} from 'mantra-core';
-          import $nameModule from "./modules/$name";
+          import $nameModule from './modules/$name';
       - type: replace
         path: ../index.js
         what: app.init();

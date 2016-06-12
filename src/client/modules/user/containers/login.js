@@ -1,11 +1,15 @@
 import { useDeps, composeAll } from 'mantra-core';
 import { composeWithTracker } from 'react-native-meteor';
 
-import Login from '../components/login.jsx';
+import L from '../../core/components/loading';
+import E from '../../core/components/error';
 
+import Login from '../components/login';
 
 export const composer = ({context}, onData) => {
   const { Meteor } = context();
+
+  return;
 
   onData(null, {});
 };
@@ -15,6 +19,6 @@ export const depsMapper = (context, actions) => ({
 });
 
 export default composeAll(
-  composeWithTracker(composer),
+  composeWithTracker(composer, L, E),
   useDeps(depsMapper)
 )(Login);
