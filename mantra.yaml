@@ -21,8 +21,6 @@ panes:
         template: appConfig
       - file: client/index.js
         template: client
-      - file: client/modules/coreindex.js
-        template: client
 templates:
   - name: appConfig
     text: |

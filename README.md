@@ -9,15 +9,15 @@ A react-native boilerplate based on Meteor/Mantra
 ## Installation
 
 * npm install
-* Change the IP in `src/client/context/app.js` by your computer address
-* Run your react-native project
+* Change the IP in `src/client/context/app.js` by your computer address running the meteor server.
+* Run your react-native project.
 
 ## Includes
 
-* [react-native-meteor](https://github.com/inProgress-team/react-native-meteor) : Meteor client
-* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) : Handles your routes
-* [tcomb-form-native](https://github.com/gcanti/tcomb-form-native) : handle your forms
-* [NativeBase](http://nativebase.io/) : UI styling. Feel free to remove it doesn't fit with you
+* [react-native-meteor](https://github.com/inProgress-team/react-native-meteor) : Meteor client.
+* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) : Handles your routes.
+* [tcomb-form-native](https://github.com/gcanti/tcomb-form-native) : Handle your forms.
+* [NativeBase](http://nativebase.io/) : UI styling for the purpose of showing a beautiful example. Feel free to remove it doesn't fit with you.
 * [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) : multiple icons
 
 ### Commandes
@@ -34,3 +34,17 @@ Routes are defined in core module (in `src/modules/core/routes.js`)
 ## Informations
 
 * (*) You may need to replace `if entry.expand` to `if entry and entry.expand` in ~/.atom/packages/mantrajs/lib/directoryHandler.coffee if you get the `Cannot read property of expand of undefined`. See https://github.com/mantrajs/mantrajs-atom-package/pull/32
+
+
+
+### TODO
+
+- [ ] Add unit test for every component
+- [ ] Add unit test for every containers
+- [ ] Add unit test for every action
+
+### TO THINK ABOUT (Please open an issue if you have ideas to help)
+
+- [ ] More tests
+- [ ] What to add ?
+
