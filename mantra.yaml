@@ -1,1 +1,237 @@
-root: src
+root: ''
+panes:
+  - name: Module
+    structure:
+      - directory: actions
+        structure:
+          - file: index.js
+            template: actionIndex
+      - directory: components
+      - directory: containers
+      - file: routes.js
+        template: route
+      - file: index.js
+        template: module
+  - name: Configs
+    structure:
+      - directory: client/configs
+      - file: client/configs/context.js
+        template: context
+      - file: client/configs/app.js
+        template: appContext
+      - file: client/index.js
+        template: client
+
+templates:
+  # Module action template
+  - name: appContext
+    create: true
+    text: |
+      const remote = 'ws://localhost:3000/websocket';
+
+      export default {
+        remote
+      };
+
+  - name: actions
+    text: |
+      export default {
+        actionName({ Meteor }, myparam) {
+
+        }
+      };
+
+    placeholders:
+    actions:
+      - type: replace
+        path: index.js
+        what: export default {
+        replace: import $name from "./$name";\n\nexport default {
+      - type: replace
+        path: index.js
+        what: export default {
+        replace: export default {\n $name,
+      - type: create
+        path: tests/$name.js
+        text: |
+          const { describe, it } = global;
+          import { expect } from 'chai';
+          import { spy, stub } from 'sinon';
+          import actions from '../$name';
+
+          describe('.actions.$name', () => {
+            describe('actionName', () => {
+              it('should ', () => {
+
+              });
+            });
+          });
+  - name: actionIndex
+    create: true
+    text: |
+      export default {
+
+      };
+  # Module component template
+  - name: components
+    text: |
+      import React, { Component } from "react";
+
+      export default class $1 extends Component {
+        render() {
+
+        }
+      }
+    placeholders:
+      - Component Name
+    actions:
+      - type: create
+        path: tests/$name.js
+        text: |
+          const { describe, it } = global;
+          import { expect } from 'chai';
+          import { shallow } from 'enzyme';
+          import Component from '../$name';
+
+          describe('NAME_MODULE.components.$name', () => {
+            it('should display the post title', () => {
+              const el = shallow(<Component />);
+              expect(el).not.to.be.null;
+            });
+          });
+  # Module container template
+  - name: containers
+    text: |
+      import React from 'react';
+      import { View } from 'react-native';
+      const errorLoading = <View />;
+
+      import { useDeps, composeAll } from 'mantra-core';
+      import { composeWithTracker } from 'react-native-meteor';
+
+
+      import $1 from '../components/$1';
+
+      export const composer = ({context}, onData) => {
+        onData(null, {});
+      };
+
+      export const depsMapper = (context) => ({
+        context: () => context
+      });
+
+      export default composeAll(
+        composeWithTracker(composer, ()=>errorLoading, ()=>errorLoading),
+        useDeps(depsMapper)
+      )($1);
+    placeholders:
+      - Component Name
+    actions:
+      - type: create
+        path: tests/$name.js
+        text: |
+          const { describe, it } = global;
+          import { expect } from 'chai';
+          import { spy, stub } from 'sinon';
+          import { composer, depsMapper } from '../$name';
+          describe('component', () => {
+            describe('composer', () => {
+              it('should ', () => {
+
+              });
+            });
+          });
+  # Module index template
+  - name: module
+    show: true
+    create: true
+    text: |
+      import actions from "./actions";
+      import routes from "./routes";
+      export default {
+        actions,
+        routes
+      };
+
+
+
+  # context template TODO
+  - name: context
+    create: true
+    text: |
+      import Meteor, { Accounts } from 'react-native-meteor';
+      /*import * as Collections from 'lib/collections';
+
+      import { FlowRouter } from 'meteor/kadira:flow-router';
+      import { ReactiveDict } from 'meteor/reactive-dict';
+      import { Tracker } from 'meteor/tracker';
+      import { Accounts } from 'meteor/accounts-base';
+      */
+      export default function () {
+        return {
+          Meteor,
+          //FlowRouter,
+          //Collections,
+          //LocalState: new ReactiveDict(),
+          //Tracker,
+          Accounts
+        };
+      }
+
+
+
+
+
+
+  # client index template
+  - name: client
+    create: true
+    show: true
+    text: |
+      import {createApp} from 'mantra-core';
+
+      import Meteor from 'react-native-meteor';
+      import initContext from './configs/context';
+      import appConfig from './configs/app';
+
+      // modules
+      import coreModule from './modules/core';
+
+      // init context
+      const context = initContext();
+
+      // create app
+      const app = createApp(context);
+      app.loadModule(coreModule);
+      app.init()
+
+      Meteor.connect(appConfig.remote);
+    actions:
+      - type: replace
+        path: ../index.js
+        what: import coreModule from './modules/core';
+        replace: |
+          import coreModule from './modules/core';
+          import $nameModule from "./modules/$name";
+      - type: replace
+        path: ../index.js
+        what: app.init();
+        replace: |
+          app.loadModule($nameModule);
+          app.init()
+  - name: route
+    text: |
+      import React from "react";
+      import { mount } from "mantra-core";
+      export default function (injectDeps) {
+        //const MainLayoutCtx = injectDeps(MainLayout);
+        // Move these as a module and call this from a main file
+        // FlowRouter.route("/", {
+        //   name: "ei.list",
+        //   action() {
+        //     mount(MainLayoutCtx, {
+        //       content: () => (<EiList />)
+        //     });
+        //   }
+        // });
+      }
