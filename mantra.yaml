@@ -18,10 +18,21 @@ panes:
       - directory: lib
       - file: client/configs/context.js
         template: context
+      - file: client/configs/app.js
+        template: appConfig
       - file: client/index.js
         template: client
 templates:
   # Module action template
+  - name: appConfig
+    text: |
+
+      const remote = 'ws://localhost:3000/websocket';
+
+      export default {
+        remote
+      };
+
   - name: actions
     text: |
       export default {
@@ -60,6 +71,7 @@ templates:
               });
             });
           });
+
   - name: actionIndex
     create: true
     text: |
@@ -67,7 +79,7 @@ templates:
       export default {
         /* CALLS */
       };
-      
+
   # Module component template
   - name: components
     text: |
@@ -78,6 +90,7 @@ templates:
           return null;
         }
       }
+
     placeholders:
       - Component Name
     actions:
@@ -95,6 +108,7 @@ templates:
               expect(el).not.to.be.null;
             });
           });
+
   # Module container template
   - name: containers
     text: |
@@ -139,6 +153,7 @@ templates:
               });
             });
           });
+
   # Module route template
   - name: route
     show: true
@@ -159,6 +174,7 @@ templates:
         //   }
         // });
       }
+
   # Module index template
   - name: module
     show: true
@@ -171,23 +187,16 @@ templates:
         actions,
         routes
       };
+
   # context template
   - name: context
     create: true
     text: |
-      import * as Collections from 'lib/collections';
-      import { Meteor } from 'meteor/meteor';
-      import { FlowRouter } from 'meteor/kadira:flow-router';
-      import { ReactiveDict } from 'meteor/reactive-dict';
-      import { Accounts } from 'meteor/accounts-base';
+      import Meteor, { Accounts } from 'react-native-meteor';
 
       export default function () {
         return {
           Meteor,
-          FlowRouter,
-          Collections,
-          LocalState: new ReactiveDict(),
-          Tracker,
           Accounts
         };
       }
@@ -207,6 +216,7 @@ templates:
       const app = createApp(context);
       app.loadModule(coreModule);
       app.init();
+
     actions:
       - type: replace
         path: ../index.js

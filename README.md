@@ -4,7 +4,7 @@ A react-native boilerplate based on Meteor/Mantra
 ## Features
 
 * Follows [Mantrajs specification](https://kadirahq.github.io/mantra/)
-* ~~Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package)~~ [WIP]
+* Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package) (*)
 
 ## Includes
 
@@ -21,3 +21,8 @@ A react-native boilerplate based on Meteor/Mantra
 ### Routes
 
 Routes are defined in core module (in `src/modules/core/routes.js`)
+
+
+## Informations
+
+* (*) You may need to replace `if entry.expand` to `if entry and entry.expand` in ~/.atom/packages/mantrajs/lib/directoryHandler.coffee if you get the `Cannot read property of expand of undefined`. See https://github.com/mantrajs/mantrajs-atom-package/pull/32
