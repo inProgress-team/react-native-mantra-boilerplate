@@ -1,4 +1,4 @@
-root: ''
+root: src
 panes:
   - name: Module
     structure:
@@ -15,42 +15,32 @@ panes:
   - name: Configs
     structure:
       - directory: client/configs
+      - directory: lib
       - file: client/configs/context.js
         template: context
-      - file: client/configs/app.js
-        template: appContext
       - file: client/index.js
         template: client
-
 templates:
   # Module action template
-  - name: appContext
-    create: true
-    text: |
-      const remote = 'ws://localhost:3000/websocket';
-
-      export default {
-        remote
-      };
-
   - name: actions
     text: |
       export default {
-        actionName({ Meteor }, myparam) {
+        $1({ Meteor }, param1) {
 
         }
       };
 
     placeholders:
+      - Action name
     actions:
       - type: replace
         path: index.js
-        what: export default {
-        replace: import $name from "./$name";\n\nexport default {
+        what: /* IMPORTS */
+        replace: import $name from "./$name";\n/* IMPORTS */
       - type: replace
         path: index.js
-        what: export default {
-        replace: export default {\n $name,
+        what: /* CALLS */
+        replace: $name,\n  /* CALLS */
       - type: create
         path: tests/$name.js
         text: |
@@ -59,19 +49,25 @@ templates:
           import { spy, stub } from 'sinon';
           import actions from '../$name';
 
-          describe('.actions.$name', () => {
-            describe('actionName', () => {
-              it('should ', () => {
-
+          describe('MODULE_NAME.actions.$name', () => {
+            describe('ACTION_NAME', () => {
+              it('should reject if title is not there', () => {
+                const LocalState = {set: spy()};
+                actions.create({LocalState}, null, 'content');
+                const args = LocalState.set.args[0];
+                expect(args[0]).to.be.equal('SAVING_ERROR');
+                expect(args[1]).to.match(/required/);
               });
             });
           });
   - name: actionIndex
     create: true
     text: |
+      /* IMPORTS */
       export default {
-
+        /* CALLS */
       };
+      
   # Module component template
   - name: components
     text: |
@@ -79,7 +75,7 @@ templates:
 
       export default class $1 extends Component {
         render() {
-
+          return null;
         }
       }
     placeholders:
@@ -93,8 +89,8 @@ templates:
           import { shallow } from 'enzyme';
           import Component from '../$name';
 
-          describe('NAME_MODULE.components.$name', () => {
-            it('should display the post title', () => {
+          describe('MODULE_NAME.components.$name', () => {
+            it('should not be null', () => {
               const el = shallow(<Component />);
               expect(el).not.to.be.null;
             });
@@ -102,31 +98,32 @@ templates:
   # Module container template
   - name: containers
     text: |
-      import React from 'react';
-      import { View } from 'react-native';
-      const errorLoading = <View />;
+      import { useDeps, composeAll, composeWithTracker } from 'mantra-core';
 
-      import { useDeps, composeAll } from 'mantra-core';
-      import { composeWithTracker } from 'react-native-meteor';
-
-
-      import $1 from '../components/$1';
+      import $1 from '../components/_____name_____.jsx';
 
       export const composer = ({context}, onData) => {
+        const { Meteor } = context();
+
         onData(null, {});
       };
 
-      export const depsMapper = (context) => ({
+      export const depsMapper = (context, actions) => ({
         context: () => context
       });
 
       export default composeAll(
-        composeWithTracker(composer, ()=>errorLoading, ()=>errorLoading),
+        composeWithTracker(composer),
         useDeps(depsMapper)
       )($1);
+
     placeholders:
       - Component Name
     actions:
+      - type: replace
+        path: $name.js
+        what: _____name_____.jsx';
+        replace: $name.jsx';
       - type: create
         path: tests/$name.js
         text: |
@@ -134,97 +131,24 @@ templates:
           import { expect } from 'chai';
           import { spy, stub } from 'sinon';
           import { composer, depsMapper } from '../$name';
-          describe('component', () => {
+
+          describe('MODULE_NAME.containers.$name', () => {
             describe('composer', () => {
               it('should ', () => {
 
               });
             });
           });
-  # Module index template
-  - name: module
-    show: true
-    create: true
-    text: |
-      import actions from "./actions";
-      import routes from "./routes";
-      export default {
-        actions,
-        routes
-      };
-
-
-
-  # context template TODO
-  - name: context
-    create: true
-    text: |
-      import Meteor, { Accounts } from 'react-native-meteor';
-      /*import * as Collections from 'lib/collections';
-
-      import { FlowRouter } from 'meteor/kadira:flow-router';
-      import { ReactiveDict } from 'meteor/reactive-dict';
-      import { Tracker } from 'meteor/tracker';
-      import { Accounts } from 'meteor/accounts-base';
-      */
-      export default function () {
-        return {
-          Meteor,
-          //FlowRouter,
-          //Collections,
-          //LocalState: new ReactiveDict(),
-          //Tracker,
-          Accounts
-        };
-      }
-
-
-
-
-
-
-  # client index template
-  - name: client
-    create: true
-    show: true
-    text: |
-      import {createApp} from 'mantra-core';
-
-      import Meteor from 'react-native-meteor';
-      import initContext from './configs/context';
-      import appConfig from './configs/app';
-
-      // modules
-      import coreModule from './modules/core';
-
-      // init context
-      const context = initContext();
-
-      // create app
-      const app = createApp(context);
-      app.loadModule(coreModule);
-      app.init()
-
-      Meteor.connect(appConfig.remote);
-    actions:
-      - type: replace
-        path: ../index.js
-        what: import coreModule from './modules/core';
-        replace: |
-          import coreModule from './modules/core';
-          import $nameModule from "./modules/$name";
-      - type: replace
-        path: ../index.js
-        what: app.init();
-        replace: |
-          app.loadModule($nameModule);
-          app.init()
+  # Module route template
   - name: route
+    show: true
+    create: true
     text: |
       import React from "react";
       import { mount } from "mantra-core";
+
       export default function (injectDeps) {
-        //const MainLayoutCtx = injectDeps(MainLayout);
+        // const MainLayoutCtx = injectDeps(MainLayout);
         // Move these as a module and call this from a main file
         // FlowRouter.route("/", {
         //   name: "ei.list",
@@ -235,3 +159,64 @@ templates:
         //   }
         // });
       }
+  # Module index template
+  - name: module
+    show: true
+    create: true
+    text: |
+      import actions from "./actions";
+      import routes from "./routes";
+
+      export default {
+        actions,
+        routes
+      };
+  # context template
+  - name: context
+    create: true
+    text: |
+      import * as Collections from 'lib/collections';
+      import { Meteor } from 'meteor/meteor';
+      import { FlowRouter } from 'meteor/kadira:flow-router';
+      import { ReactiveDict } from 'meteor/reactive-dict';
+      import { Accounts } from 'meteor/accounts-base';
+
+      export default function () {
+        return {
+          Meteor,
+          FlowRouter,
+          Collections,
+          LocalState: new ReactiveDict(),
+          Tracker,
+          Accounts
+        };
+      }
+
+  # client index template
+  - name: client
+    create: true
+    show: true
+    text: |
+      import "./configs/config";
+      import {createApp} from 'mantra-core';
+      import coreModule from "./modules/core/index";
+      import initContext from "./configs/context";
+      // init context
+      const context = initContext();
+      // create app
+      const app = createApp(context);
+      app.loadModule(coreModule);
+      app.init();
+    actions:
+      - type: replace
+        path: ../index.js
+        what: import {createApp} from 'mantra-core';
+        replace: |
+          import {createApp} from 'mantra-core';
+          import $nameModule from "./modules/$name";
+      - type: replace
+        path: ../index.js
+        what: app.init();
+        replace: |
+          app.loadModule($nameModule);
+          app.init()

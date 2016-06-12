@@ -1,1 +1,1 @@
-import app from './client';
+import app from './src/client';
