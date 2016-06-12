@@ -4,7 +4,13 @@ A react-native boilerplate based on Meteor/Mantra
 ## Features
 
 * Follows [Mantrajs specification](https://kadirahq.github.io/mantra/)
-* Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package) (*)
+* :tada Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package) (*)
+
+## Installation
+
+* npm install
+* Change the IP in `src/client/context/app.js` by your computer address
+* Run your react-native project
 
 ## Includes
 
