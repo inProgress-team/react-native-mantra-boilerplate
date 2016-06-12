@@ -11,7 +11,7 @@ export default class Routes extends Component {
       <Router sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}>
         <Scene key="root">
           <Scene key="home" component={Home} title="Home"/>
-          <Scene key="login" component={Login} title="Login"/>
+          <Scene key="login" initial={true} component={Login} title="Login"/>
         </Scene>
       </Router>
     );

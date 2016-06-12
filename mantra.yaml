@@ -8,6 +8,7 @@ panes:
             template: actionIndex
       - directory: components
       - directory: containers
+      - directory: forms
       - file: index.js
         template: module
   - name: Configs

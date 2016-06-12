@@ -1,4 +1,4 @@
-import Meteor, { Accounts } from 'react-native-meteor';
+import Meteor, { Accounts, ReactiveDict } from 'react-native-meteor';
 import { Actions } from 'react-native-router-flux';
 /*import * as Collections from 'lib/collections';
 
@@ -11,9 +11,9 @@ export default function () {
   return {
     Meteor,
     Accounts,
-    Actions
+    Actions,
     //FlowRouter,
     //Collections,
-    //LocalState: new ReactiveDict()
+    LocalState: new ReactiveDict()
   };
 }

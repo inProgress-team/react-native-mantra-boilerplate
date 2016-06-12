@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-
+import { StyleSheet } from 'react-native';
 import { Container, Content, Button } from 'native-base';
 
 export default class Home extends Component {
@@ -9,10 +8,16 @@ export default class Home extends Component {
 
     return (
       <Container>
-        <Content style={{paddingHorizontal: 10}}>
+        <Content style={styles.content}>
           <Button block onPress={Actions.login}>Login</Button>
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  content: {
+    padding: 10
+  }
+});

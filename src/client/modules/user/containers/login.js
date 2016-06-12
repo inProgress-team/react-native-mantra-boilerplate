@@ -7,13 +7,14 @@ import E from '../../core/components/error';
 import Login from '../components/login';
 
 export const composer = ({context}, onData) => {
-  const { Meteor } = context();
+  const { Meteor, LocalState } = context();
 
-  onData(null, {});
+  onData(null, {error: LocalState.get('LOGIN_ERROR'), success: LocalState.get('LOGIN_SUCCESS')});
 };
 
 export const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
+  login: actions.account.login
 });
 
 export default composeAll(
