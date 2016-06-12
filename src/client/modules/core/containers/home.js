@@ -8,14 +8,14 @@ import Home from '../components/home';
 
 export const composer = ({context}, onData) => {
   const { Meteor } = context();
-
-  onData(null, {});
-
+  console.log(Meteor.user());
+  onData(null, { user: Meteor.user() });
 };
 
 export const depsMapper = (context, actions) => ({
   context: () => context,
-  Actions: context.Actions
+  Actions: context.Actions,
+  logout: actions.account.logout
 });
 
 export default composeAll(
