@@ -5,9 +5,11 @@ A react-native boilerplate based on Meteor/Mantra
 
 * Follows [Mantrajs specification](https://kadirahq.github.io/mantra/)
 * :tada: Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package) (*)
+* Login / Logout
 
 ## Installation
 
+* git clone https://github.com/inProgress-team/react-native-mantra-boilerplate.git your-project-name
 * npm install
 * Change the IP in `src/client/context/app.js` by your computer address running the meteor server.
 * Run your react-native project.
