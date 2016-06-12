@@ -1,19 +1,8 @@
-import React from 'react';
-import { AppRegistry, Navigator } from 'react-native';
-import { Scene, Router } from 'react-native-router-flux';
+import { AppRegistry } from 'react-native';
 
-import Home from './containers/home';
+import Routes from '../../configs/routes';
 
-export default function(injectDeps) {
-
-  const App = () => (
-    <Router sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight}}>
-      <Scene key="root">
-        <Scene key="home" component={Home} title="Home"/>
-      </Scene>
-    </Router>
-  );
-
-  const AppCtx = injectDeps(App);
-  AppRegistry.registerComponent('App', () => AppCtx);
-}
+export default injectDeps => {
+  const RoutesCtx = injectDeps(Routes);
+  AppRegistry.registerComponent('App', () => RoutesCtx);
+};
