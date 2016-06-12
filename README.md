@@ -4,12 +4,13 @@ A react-native boilerplate based on Meteor/Mantra
 ## Features
 
 * Follows [Mantrajs specification](https://kadirahq.github.io/mantra/)
-* Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package)
+* ~~Fully works with [Mantrajs Atom Package](https://github.com/mantrajs/mantrajs-atom-package)~~ [WIP]
 
 ## Includes
 
-* [react-native-meteor](https://github.com/inProgress-team/react-native-meteor)
-* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux)
+* [react-native-meteor](https://github.com/inProgress-team/react-native-meteor) : Meteor client
+* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) : Handles your routes
+* [tcomb-form-native](https://github.com/gcanti/tcomb-form-native)
 
 ### Commandes
 
