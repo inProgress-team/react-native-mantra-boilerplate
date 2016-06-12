@@ -9,28 +9,13 @@ import Home from '../components/home';
 export const composer = ({context}, onData) => {
   const { Meteor } = context();
 
-
-  setTimeout(()=>{
-    onData(new Error('dzad'), {});
-  }, 2000);
-
-
-  setTimeout(()=>{
-    onData(null, {});
-  }, 4000);
-
-  console.log(Meteor.status());
-  if(false) {
-      onData(new Error('dzad'), {});
-  }
-
-
-
+  onData(null, {});
 
 };
 
 export const depsMapper = (context, actions) => ({
-  context: () => context
+  context: () => context,
+  Actions: context.Actions
 });
 
 export default composeAll(

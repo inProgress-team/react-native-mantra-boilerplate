@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "mantra-core": "^1.6.1",
+    "native-base": "^0.4.6",
     "react": "15.0.2",
     "react-native": "^0.26.3",
     "react-native-meteor": "^1.0.0-rc9",
     "react-native-router-flux": "^3.26.24",
+    "react-native-vector-icons": "^2.0.3",
     "tcomb-form-native": "^0.5.1"
   },
   "devDependencies": {

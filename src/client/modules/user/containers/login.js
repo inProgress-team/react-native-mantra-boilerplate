@@ -9,8 +9,6 @@ import Login from '../components/login';
 export const composer = ({context}, onData) => {
   const { Meteor } = context();
 
-  return;
-
   onData(null, {});
 };
 

@@ -17,6 +17,8 @@ A react-native boilerplate based on Meteor/Mantra
 * [react-native-meteor](https://github.com/inProgress-team/react-native-meteor) : Meteor client
 * [react-native-router-flux](https://github.com/aksonov/react-native-router-flux) : Handles your routes
 * [tcomb-form-native](https://github.com/gcanti/tcomb-form-native) : handle your forms
+* [NativeBase](http://nativebase.io/) : UI styling. Feel free to remove it doesn't fit with you
+* [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons) : multiple icons
 
 ### Commandes
 
