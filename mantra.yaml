@@ -84,13 +84,17 @@ templates:
   - name: components
     text: |
       import React, { Component } from 'react';
-      import { View } from 'react-native';
+      import { View, StyleSheet } from 'react-native';
 
       export default class $1 extends Component {
         render() {
           return null;
         }
       }
+
+      const styles = StyleSheet.create({
+
+      });
 
     placeholders:
       - Component Name
