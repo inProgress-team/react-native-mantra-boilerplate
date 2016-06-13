@@ -13,7 +13,7 @@ export default class Login extends Component {
     }
   }
   render() {
-    const { login, error, success } = this.props;
+    const { error, success } = this.props;
 
     return (
       <Container>

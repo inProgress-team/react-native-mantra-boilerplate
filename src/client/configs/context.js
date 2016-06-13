@@ -14,6 +14,6 @@ export default function () {
     Actions,
     //FlowRouter,
     //Collections,
-    LocalState: new ReactiveDict('a')
+    LocalState: new ReactiveDict()
   };
 }
