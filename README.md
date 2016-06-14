@@ -14,6 +14,7 @@ A react-native boilerplate based on Meteor/Mantra
 
 ## Installation
 
+* **Due to react-native-router-flux actual version, npm@3 is required**
 * git clone https://github.com/inProgress-team/react-native-mantra-boilerplate.git your-project-name
 * npm install
 * Change the IP in `src/client/context/app.js` by your computer address running the meteor server.
