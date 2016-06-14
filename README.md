@@ -35,7 +35,7 @@ A react-native boilerplate based on Meteor/Mantra
 
 ### Routes
 
-Routes are defined in core module (in `src/modules/core/routes.js`)
+Routes are defined in core module (in `src/client/configs/routes.js`)
 
 
 ## Informations
