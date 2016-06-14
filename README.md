@@ -1,6 +1,11 @@
 # react-native-mantra-boilerplate
 A react-native boilerplate based on Meteor/Mantra
 
+### WARNING
+
+* This is still alpha
+* Please report any issue to this Github ;)
+
 ## Features
 
 * Follows [Mantrajs specification](https://kadirahq.github.io/mantra/)
