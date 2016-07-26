@@ -23,9 +23,11 @@ export default class Home extends Component {
               </CardItem>
 
               <CardItem>
-                  <Text>_id: {user._id}</Text>
-                  <Text>email: {user.emails[0].address}</Text>
-                  <Text>name: {user.profile.firstName + ' ' + user.profile.lastName}</Text>
+                <Text>_id: {user._id}</Text>
+                <Text>email: {user.emails[0].address}</Text>
+                { user.profile && user.profile.firstName && user.profile.lastName ?
+                <Text>name: {user.profile.firstName + ' ' + user.profile.lastName}</Text>
+                : <Text>No profile information</Text> }
               </CardItem>
             </Card>
           }
